@@ -1,0 +1,10 @@
+Initial commit: Scaffold React client with AntiGravity login UI
+
+- Initialized standard React + Vite + TypeScript application in `client/`
+- Configured ESLint and TypeScript for standard code quality
+- Added project root `.gitignore` to prevent tracking `node_modules`
+- Implemented `Login` component UI with:
+  - Form fields for email/phone and password
+  - Interactive login and sign-up buttons
+  - Responsive layout for social network landing page branding
+  - Standard styling utilizing `Login.css`
