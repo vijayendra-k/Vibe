@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import './Login.css';
 
@@ -7,15 +8,18 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
+  
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
+    setMessage(null);
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log('Successfully logged in!', userCredential.user);
-      alert('Success! You are logged into the database as: ' + userCredential.user.email);
-      // TODO: Redirect to the Main Feed later
+      await signInWithEmailAndPassword(auth, email, password);
+      // Automatically redirect to the feed on success
+      navigate('/feed');
     } catch (err: any) {
       console.error('Login error', err);
       setError(err.message);
@@ -28,12 +32,29 @@ const Login: React.FC = () => {
       return;
     }
     setError(null);
+    setMessage(null);
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log('Account created!', userCredential.user);
-      alert('Account Successfully Created in Database: ' + userCredential.user.email);
+      await createUserWithEmailAndPassword(auth, email, password);
+      // Automatically redirect to the feed on success
+      navigate('/feed');
     } catch (err: any) {
       console.error('Sign up error', err);
+      setError(err.message);
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    if (!email) {
+      setError("Please enter your email address in the field above to reset your password.");
+      return;
+    }
+    setError(null);
+    setMessage(null);
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setMessage("Password reset email sent! Check your inbox.");
+    } catch (err: any) {
+      console.error('Reset error', err);
       setError(err.message);
     }
   };
@@ -63,12 +84,15 @@ const Login: React.FC = () => {
                 placeholder="Password" 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
+                // Not strictly required for forgot password flow, so we handle it manually
               />
             </div>
+            
             {error && <div style={{color: 'red', fontSize: '14px', marginBottom: '10px'}}>{error}</div>}
-            <button type="submit" className="btn-primary">Log In</button>
-            <a href="#" className="forgot-password">Forgot password?</a>
+            {message && <div style={{color: 'green', fontSize: '14px', marginBottom: '10px'}}>{message}</div>}
+            
+            <button type="submit" className="btn-primary" onClick={() => { if(!password) setError("Password required to login") }}>Log In</button>
+            <a href="#" className="forgot-password" onClick={(e) => { e.preventDefault(); handleForgotPassword(); }}>Forgot password?</a>
             <div className="divider"></div>
             <button type="button" className="btn-secondary" onClick={handleCreateAccount}>Create new account</button>
           </form>
