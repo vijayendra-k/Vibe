@@ -1,0 +1,148 @@
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  height: 56px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo-small {
+  font-size: 24px;
+  font-weight: 800;
+  color: #1877f2;
+  text-decoration: none;
+}
+
+.search-bar input {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  background-color: #f0f2f5;
+  width: 240px;
+  outline: none;
+}
+
+.nav-right .user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-email {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.btn-logout {
+  background-color: #e4e6eb;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-logout:hover {
+  background-color: #d8dadf;
+}
+
+.layout-body {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding-top: 16px;
+}
+
+.sidebar {
+  width: 280px;
+  position: sticky;
+  top: 72px;
+  height: calc(100vh - 72px);
+}
+
+.nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links li {
+  margin-bottom: 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 8px;
+  color: #050505;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: background-color 0.2s;
+}
+
+.nav-item:hover {
+  background-color: #e4e6eb;
+}
+
+.main-content {
+  flex: 1;
+  max-width: 600px;
+  margin: 0 32px;
+}
+
+.right-sidebar {
+  width: 280px;
+  position: sticky;
+  top: 72px;
+  height: calc(100vh - 72px);
+  padding: 16px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.right-sidebar h3 {
+  margin-top: 0;
+  font-size: 16px;
+  color: #65676b;
+}
+
+.trending-list {
+  list-style: none;
+  padding: 0;
+}
+
+.trending-list li {
+  padding: 8px 0;
+  font-weight: 600;
+  color: #050505;
+  cursor: pointer;
+}
+
+.trending-list li:hover {
+  text-decoration: underline;
+}
